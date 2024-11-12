@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agricultural Products Store</title>
+<style>
+  /* Neon CSS styles */
+  body {
+    background: #FFE4C4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: #a9fbe5; /* Light blue background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+h1 {
+    text-align: center;
+    text-shadow: 0 0 10px #1dddb4, 0 0 20px #1dddb4, 0 0 30px #1dddb4; /* Neon text shadow */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: black; /* Neon green */
+}
+input[type="number"], input[type="date"] {
+    width: 100px;
+    background-color: #d1f5ff; /* Light blue background */
+    border: 1px solid #001eff;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+}
+button {
+    background-color: #001eff; /* Neon green */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; /* Neon text shadow */
+    animation: glow 1s ease-in-out infinite alternate;
+}
+button:hover {
+    background-color: #00ff00; /* Brighter neon green on hover */
+}
+.login {
+    background-color: #0f0; /* Neon green */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; /* Neon text shadow */
+    animation: glow 1s ease-in-out infinite alternate;
+}
+/* Hover effect */
+.login:hover {
+    background-color: #55d1f4; /* Brighter neon green on hover */
+}
+
+/* Animation */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; /* Neon text shadow */
+    }
+    to {
+        text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; /* Neon text shadow */
+    }
+}
+
+</style>
+</head>
+<body>
+  <a class="cta" href="/home"><button class="login">Home</button></a>
+<div class="container">
+  <h1>OUR GRAIN PRODUCTS</h1>
+  <div>
+    <label for="productName">Product Name:</label>
+    <select id="productName">
+      <option value="Wheat">Wheat</option>
+      <option value="Maize">Maize</option>
+      <option value="Paddy">Paddy</option>
+      <option value="Millet">Millet</option>
+      <option value="Barley">Barley</option>
+      <option value="Sorghum">Sorghum</option>
+    </select>
+    <label for="productFromDate">From Date:</label>
+    <input type="date" id="productFromDate">
+    <label for="productToDate">To Date:</label>
+    <input type="date" id="productToDate" disabled>
+    <label for="productQuantity">Quantity:</label>
+    <input type="number" id="productQuantity" min="0">
+    <button onclick="addProduct()">Import</button> <!-- Changed label from "Add Product" to "Import" -->
+  </div>
+  
+  <table id="productTable">
+    <tr>
+      <th>Product</th>
+      <th>From Date</th>
+      <th>To Date</th>
+      <th>Quantity</th>
+      <th>Action</th>
+    </tr>
+    <!-- Product rows will be dynamically added here -->
+  </table>
+  
+  <h2>Aggregated Products</h2>
+  <table id="aggregatedTable">
+    <tr>
+      <th>Product</th>
+      <th>Total Quantity</th>
+      <th>Action</th>
+    </tr>
+  </table>
+</div>
+
+<script>
+  // JavaScript code
+  var aggregatedData = {};
+
+  function addProduct() {
+    var productName = document.getElementById("productName").value;
+    var productFromDate = document.getElementById("productFromDate").value;
+    var productToDate = document.getElementById("productToDate").value;
+    var productQuantity = parseInt(document.getElementById("productQuantity").value);
+
+    // Validating product name
+    var allowedProducts = ["Wheat", "Maize", "Paddy", "Millet", "Barley","Sorghum"];
+    if (!allowedProducts.includes(productName)) {
+      alert("Please select a valid product name.");
+      return;
+    }
+
+    if (!productFromDate || isNaN(productQuantity)) {
+      alert("Please enter valid product details.");
+      return;
+    }
+    
+    // Calculate to date
+    var fromDate = new Date(productFromDate);
+    var toDate = new Date(fromDate);
+    toDate.setDate(toDate.getDate() + 28);
+    var dd = String(toDate.getDate()).padStart(2, '0');
+    var mm = String(toDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = toDate.getFullYear();
+    productToDate = yyyy + '-' + mm + '-' + dd;
+
+    var table = document.getElementById("productTable");
+    var row = table.insertRow(-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+
+    cell1.innerHTML = productName;
+    cell2.innerHTML = productFromDate;
+    cell3.innerHTML = productToDate;
+    cell4.innerHTML = productQuantity;
+    cell5.innerHTML = '<button onclick="exportProduct(this)">Export</button>'; // Changed label from "Sell" to "Export"
+
+    // Update aggregated data
+    if (aggregatedData[productName]) {
+      aggregatedData[productName] += productQuantity;
+    } else {
+      aggregatedData[productName] = productQuantity;
+    }
+
+    // Update aggregated table
+    updateAggregatedTable();
+  }
+
+  function updateAggregatedTable() {
+    var aggregatedTable = document.getElementById("aggregatedTable");
+    // Clear existing rows
+    aggregatedTable.innerHTML = '<tr><th>Product</th><th>Total Quantity</th><th>Action</th></tr>';
+
+    // Add rows for each aggregated product
+
+    for (var productName in aggregatedData) {
+      var row = aggregatedTable.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      cell1.innerHTML = productName;
+      cell2.innerHTML = aggregatedData[productName];
+      cell3.innerHTML = '<button onclick="exportProductAggregated(this)">Export</button>'; // Added export button
+    }
+  }
+
+  function exportProduct(button) {
+    var row = button.parentNode.parentNode;
+    var quantityCell = row.cells[3];
+    var currentQuantity = parseInt(quantityCell.innerHTML);
+
+    if (currentQuantity > 0) {
+      var exportedQuantity = prompt("How many Quantity you export?", "1");
+      if (exportedQuantity !== null) {
+        exportedQuantity = parseInt(exportedQuantity);
+        if (!isNaN(exportedQuantity) && exportedQuantity > 0 && exportedQuantity <= currentQuantity) {
+          quantityCell.innerHTML = currentQuantity - exportedQuantity;
+          // Update aggregated data after export
+          var productName = row.cells[0].innerHTML;
+          aggregatedData[productName] -= exportedQuantity;
+          updateAggregatedTable();
+        } else {
+          alert("Please enter a valid quantity to export.");
+        }
+      }
+    } else {
+      alert("No more products left to export.");
+    }
+  }
+
+  function exportProductAggregated(button) {
+    var row = button.parentNode.parentNode;
+    var productName = row.cells[0].innerHTML;
+    var productQuantity = aggregatedData[productName];
+    
+    if (productQuantity > 0) {
+        var exportedQuantity = prompt("How many Quantity you export?", "1");
+        if (exportedQuantity !== null) {
+            exportedQuantity = parseInt(exportedQuantity);
+            if (!isNaN(exportedQuantity) && exportedQuantity > 0 && exportedQuantity <= productQuantity) {
+                aggregatedData[productName] -= exportedQuantity;
+                updateAggregatedTable();
+                alert("Export successful!");
+            } else {
+                alert("Please enter a valid quantity to export.");
+            }
+        }
+    } else {
+        alert("No more products left to export.");
+    }
+}
+
+</script>
+
+</body>
+</html>

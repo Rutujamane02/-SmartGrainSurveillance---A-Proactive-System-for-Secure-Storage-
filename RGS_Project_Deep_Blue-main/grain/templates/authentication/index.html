@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Comaptible" content="IE=edge">
+	<title>SmartGrain Surveillance</title>
+	<meta name="desciption" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Headland+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Tac+One&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
+@import url('https://fontawesome.com/icons/google?f=brands&s=solid');
+
+*
+{
+	box-sizing: border-box;
+	margin: 1;
+	padding: 0;
+}
+
+body
+{
+	background: #fff;
+	/*display: flex;*/
+	min-height: 100vh;
+	justify-content: center;
+	align-items: center;
+	font-family:"Headland One", serif;
+	background-color:#FFE4C4;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.nav
+{
+	width: 100%;
+	background-color: #262626;
+	display: flex;
+	height: 25px;
+	border-radius: 10px;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30px 2%;
+	box-shadow: 2px 2px 10px black;
+	position: sticky;
+	top: 10px;
+	z-index: 10;
+}
+
+.nav li, a, button
+{
+	float: left;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	color: white;
+	display: block;
+	text-decoration: none;
+	text-align: center;
+}
+
+.nav ul li 
+{
+	list-style: none;
+	display: inline-block;
+	padding: 0px 20px;
+	/*margin-top: 2px;*/
+}
+
+.nav ul li a
+{
+	transition: all 0.3s ease 0s;
+}
+
+.nav ul li a:hover
+{
+	color: #0088a9;
+}
+
+#sub_menu
+{
+	display: none;
+}
+
+.nav ul li:hover #sub_menu
+{
+	display: block;
+	position: absolute;
+	background-color: #262626;
+	margin-top: 31px;
+	margin-left: -15px;
+	padding: 3px;
+	border-radius: 5px;
+	width: 210px;
+}
+
+.nav ul li:hover #sub_menu ul
+{
+	display: block;
+	margin: 10px;
+}
+
+.nav ul li:hover #sub_menu ul li
+{
+	width: 210px;
+	padding: 10px;
+	background: transparent;
+	text-align: center;
+}
+
+#sub_menu ul li a:hover
+{
+	/*background-color: rgba(0, 136, 169, 1);*/
+	color: #0088a9;
+}
+
+/*Buttons Styling*/
+.nav button
+{
+	margin-left: 10px;
+	padding: 9px 25px;
+	background-color:#FFA07A;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
+}
+
+/*Hover Effect on all the buttons*/
+.nav button:hover
+{
+	background-color: rgba(0, 136, 169,0.8);
+}
+
+/*Search Bar*/
+.nav .search
+{
+	float: right;
+}
+.nav .search .srch
+{
+	font-size: 17px;
+	width: 300px;
+	border: none;
+	border-radius: 3px;
+	padding: 9px;
+}
+
+.nav .search button
+{
+	margin-right: 5px;
+	float: right;
+	margin-left: 10px;
+}
+
+/*Search Box Ending*/
+/*Icon for menus*/
+
+.nav ul li .icon
+{
+	margin-top: 7px; 
+	width: 30px;
+	padding-right: 10px;	
+}
+
+.morethan
+{
+	width: 15px;
+	margin-left: 55px;
+}
+
+.sub_menu_2
+{
+	display: none;
+}
+
+.hover-me:hover .sub_menu_2
+{
+	position: absolute;
+	display: block;
+	margin-left: 180px;
+	margin-top: -15px;
+	color: #0088a9;
+	border-radius: 5px;
+	background-color: #262626;
+}
+
+.container
+{
+	margin-left: 24%;
+	width: 1000px;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+}
+
+.container .card
+{
+	position: relative;
+}
+
+.container .card .face
+{
+	width: 300px;
+	height: 250px;
+	transition: 0.5s;
+	border-radius: 8px;
+}
+
+.container .card .face.face1
+{
+	position: relative;
+	background: #daebf0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+	transform: translateY(100px);
+}
+.container .card:hover .face.face1
+{
+	background: #ff0057;
+	transform: translateY(45px);
+}
+.container .card .face.face1 .content
+{
+	opacity: 0.2;
+	transition: 0.5s;
+}
+.container .card:hover .face.face1 .content
+{
+	opacity: 1;
+}
+.container .card .face.face1 .content img
+{
+	max-width: 100px;
+}
+.container .card .face.face1 .content h3
+{
+	margin: 10px 0 0;
+	padding: 0;
+	color: #fff;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.container .card .face.face2
+{
+	position: relative;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	box-sizing: border-box;
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+	transform: translateY(-150px);
+}
+.container .card:hover .face.face2
+{
+	transform: translateY(0);
+}
+
+.container .card .face.face2 .content p
+{
+	margin: 0;
+	padding: 0;
+}
+.container .card .face.face2 .content a
+{
+	margin: 15px 0 0;
+	display: inline-block;
+	text-decoration: none;
+	font-weight: 900;
+	color: #333;
+	padding: 5px;
+	border: 1px solid #333;
+}
+
+.container .card .face.face2 .content a:hover
+{
+	background-color: #333;
+	color: #fff;
+}
+
+.para
+{
+	text-align: center;
+	color: black;
+	font-size: 20px;
+}
+
+.title
+{
+	color: rgb(200, 210, 227);
+	font-family: 'Dancing Script', cursive;
+	font-weight: 900;
+	font-size: 70px;
+	text-align: center;
+	color: black;
+}
+
+section
+{
+	display: flex;
+	/*position: absolute;*/
+	width: 100%;
+	height: 40vh;
+	border: 2px solid #000;
+}
+
+section .slide
+{
+	position: relative;
+	background: #0f0;
+	height: 100%;
+	flex: 1;
+	border-right: 2px solid #000;
+	overflow: hidden;
+	transition: 0.5s ease-in-out; 
+}
+section .slide:last-child
+{
+	border-right: none;
+}
+section .slide:hover
+{
+	flex-grow: 4;
+}
+section .slide:nth-child(1)
+{
+	background: url(https://cdn.pixabay.com/photo/2014/07/02/06/47/wheat-381848_640.jpg);
+	background-position: center center;
+	background-size: 100vh 40vh;
+}
+section .slide:nth-child(2)
+{
+	background: url(https://gonefarmers.com/cdn/shop/products/image_0bef0c27-a579-49da-90f2-b1fe09ac2ba0_1024x1024@2x.jpg?v=1658638294https://gonefarmers.com/cdn/shop/products/image_0bef0c27-a579-49da-90f2-b1fe09ac2ba0_1024x1024@2x.jpg?v=1658638294);
+	background-position: center center;
+	background-size: 100vh 40vh;
+}
+section .slide:nth-child(3)
+{
+	background: url(https://www.tastingtable.com/img/gallery/everything-you-need-to-know-about-barley/intro-1640793289.webp);
+	background-position: center center;
+	background-size: 100vh 40vh;
+}
+section .slide:nth-child(4)
+{
+	background: url(https://images.unsplash.com/photo-1641912593355-134c57c76246?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzczODV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTE1OTE1MTF8&ixlib=rb-4.0.3&q=80&w=1080);
+	background-position: center center;
+	background-size: 100vh 40vh;
+}
+section .slide:nth-child(5)
+{
+	background: url(https://cdn.pixabay.com/photo/2022/11/03/03/59/millet-7566575_640.jpg);
+	background-position: center center;
+	background-size: 100vh 40vh;
+}
+section .slide:nth-child(6)
+{
+	background: url(https://cdn.pixabay.com/photo/2014/02/26/13/19/sorghum-275257_1280.jpg);
+	background-position: center center;
+	background-size: 100vh 40vh;
+}
+section .slide:nth-child(7)
+{
+	background: url(images/b7.jpg);
+	background-position: center center;
+	background-size: 100vh 40vh;
+}
+section .slide .content
+{
+	position: absolute;
+	bottom: 0;
+	margin: 20px;
+	padding: 10px;
+	background-color: #000;
+	color: #fff;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0s;
+	transform: translateY(100px);
+}
+section .slide:hover .content
+{
+	visibility: visible;
+	opacity: 1;
+	transition: 0.5s;
+	/*transition-delay: 0.5s;*/
+	box-shadow: 2px 2px 5px black;
+	transform: translateY(0);	
+}
+section .slide .content:hover
+{
+	background: #ff0057;
+}
+
+
+.thecontainer
+{
+	position: relative;
+	width: 1200px;
+	height: 1000px;
+	margin: 80px auto 0;
+	/*background-color: #262626;*/
+}
+
+.thecontainer .box
+{
+	position: relative;
+	width: calc(400px - 30px);
+	height: calc(300px - 100px);
+	background-color: #000;
+	float: left;
+	margin: 15px;
+	box-sizing: border-box;
+	overflow: hidden;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.8);
+}
+
+.thecontainer .box:before
+{
+	content: '';
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	right: 10px;
+	bottom: 10px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	box-sizing: border-box;
+	transition: 0.5s;
+	transform: scaleX(0);
+	z-index: 1;
+}
+.thecontainer .box:hover:before
+{
+	transform: scaleX(1);
+	opacity: 1;
+}
+
+.thecontainer .box:after
+{
+	content: '';
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	right: 10px;
+	bottom: 10px;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;
+	box-sizing: border-box;
+	transition: 0.5s;
+	transform: scaleY(0);
+	z-index: 1;
+}
+.thecontainer .box:hover:after
+{
+	transform: scaleY(1);
+	opacity: 1;
+}
+.thecontainer .box .imgBox
+{
+	position: relative;
+}
+.thecontainer .box .imgBox img
+{
+	width: 100%;
+	transition: 0.5s;
+}
+.thecontainer .box:hover .imgBox img
+{
+	opacity: 0.2;
+	transform: scale(1.2);
+}
+.thecontainer .box .content
+{
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 2;
+	padding: 20px;
+	box-sizing: border-box;
+	text-align: center;
+}
+.thecontainer .box .content h2
+{
+	margin: 0 0 10px;
+	padding: 0;
+	color: #fff;
+	transition: 0.5s;
+	transform: translateY(-50px);
+	opacity: 0;
+	visibility: hidden;
+}
+.thecontainer .box .content p
+{
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	transition: 0.5s;
+	transform: translateY(50px);
+	opacity: 0;
+	visibility: hidden;
+}
+.thecontainer .box:hover .content h2,
+.thecontainer .box:hover .content p
+{
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0px);
+	transition-delay: 0.2s;
+}
+
+/*Product Cards*/
+.product-card {
+	/*background: #ff3;*/
+	/*width: 1300px;*/
+	height: 300px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.product-card .card{
+	padding: 10px;
+
+}
+.product-card .card img {
+	width: 100px;
+	box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+}
+
+
+/*Footer*/
+
+footer {
+	color: #fff;
+	background: #262626;
+	padding: 90px 0; 
+}
+
+.footer-container {
+	max-width: 1300px;
+	margin: auto;
+	padding: 0 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap-reverse;
+}
+
+.social-media img{
+	width: 30px;
+}
+
+footer .logo {
+	width: 180px;
+	font-family: 'Montserrat', cursive;
+}
+.social-media{
+	margin: 20px 0;
+}
+
+.social-media a{
+	color: #001a21;
+	margin-right: 10px;
+	font-size: 22px;
+	text-decoration: none;
+	/*transition: .3s linear;*/
+}
+
+.right-col h1{
+	font-size: 26px;
+}
+footer .border{
+	width: 100px;
+	height: 4px;
+	background: rgba(0, 136, 169, 1);
+}
+
+footer .newsletter-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+footer .txtb {
+	flex: 1;
+	padding: 18px 40px;
+	font-size: 16px;
+	color: #293043;
+	background: #ddd;
+	border: none;
+	font-weight: 700;
+	outline: none;
+	border-radius: 30px;
+	min-width: 260px;
+}
+
+footer .btn {
+	padding: 18px 40px;
+	font-size: 16px;
+	color: #f1f1f1;
+	background: rgba(0, 136, 169, 1);
+	border: none;
+	font-weight: 700;
+	outline: none;
+	border-radius: 30px;
+	margin-left: 20px;
+	cursor: pointer;
+	transition: opacity .3s linear;	
+}
+
+footer .btn:hover {
+	opacity: .7;
+}
+
+@media screen and (max-width: 960px) {
+	.footer-container {
+		max-width: 600px;
+	}
+	.right-col {
+		width: 100%;
+		margin-bottom: 60px;
+	}
+	.left-col {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	footer .btn{
+		margin: 0;
+		width: 100%;
+		margin-top: 20px;
+	}
+}
+/* Default styles */
+
+/* Add your default styles here */
+
+/* Media query for screens smaller than 960px */
+@media screen and (max-width: 960px) {
+    .thecontainer {
+        width: 100%;
+        margin: 50px auto 0;
+    }
+    .container {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .nav ul li,
+    .nav button,
+    .nav .search .srch {
+        font-size: 14px;
+    }
+}
+
+/* Media query for screens smaller than 700px */
+@media screen and (max-width: 700px) {
+    .nav {
+        padding: 15px 2%;
+    }
+    .nav ul li,
+    .nav button,
+    .nav .search .srch {
+        font-size: 12px;
+    }
+    .container .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Media query for screens smaller than 500px */
+@media screen and (max-width: 500px) {
+    .nav ul li {
+        padding: 0px 10px;
+    }
+    .nav .search .srch {
+        width: 250px;
+    }
+    .title {
+        font-size: 40px;
+    }
+    .product-card .card img {
+        width: 250px;
+    }
+    footer .txtb,
+    footer .btn {
+        padding: 15px 30px;
+        font-size: 14px;
+    }
+}
+#myButton,#myButton1,#myButton2,#my {
+      padding: 10px 20px;
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    /* Hover effect */
+    #myButton,#myButton1,#myButton2:hover,#my {
+      background-color: #45a049;
+    }
+/* Media query for screens smaller than 320px */
+@media screen and (max-width: 320px) {
+    .nav ul li {
+        padding: 0px 5px;
+    }
+    .nav .search .srch {
+        width: 200px;
+    }
+    .title {
+        font-size: 30px;
+    }
+    .product-card .card img {
+        width: 200px;
+    }
+    footer .txtb,
+    footer .btn {
+        padding: 12px 25px;
+        font-size: 12px;
+    }
+}
+/* Style the alert container */
+/* .alert-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.alert-wrapper {
+    margin-bottom: 10px;
+}
+
+/* Success alert */
+
+#weather-container {
+       position: absolute;  /*Position the weather container absolutely within the section */ 
+    	  top: 100px;
+      right: 20px;
+      display: flex; /* Use flexbox for layout */
+       flex-direction: column; /* Stack the elements vertically */
+       align-items: center;
+	   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Align items to the right */
+     } 
+
+    #weather,
+    #datetime {
+      margin-bottom: 5px; /* Add some space between elements */
+    }
+    #weather-icon{
+      	margin-right: 45px; /* Add some space between the icon and weather info */
+		width: 45px; /* Set the width of the icon */
+		height: 45px; 
+    }
+</style>
+<script>function closeAlert(button) {
+    var alertWrapper = button.closest('.alert-wrapper');
+    alertWrapper.style.display = 'none';
+}
+</script>
+<body>
+	<div class="nav">
+		<ul>
+			<li><a href="#"><img src="" class="icon">Home</a></li>
+			<li><a href="#p"><img src="" class="icon">Products</a>
+				<div id="sub_menu">
+					<ul>
+						<li><a href="#p">Wheat</a></li>
+						<li><a href="#p">Paddy</a></li>
+						<li><a href="#p">Corn</a></li>
+						<li><a href="#p">Barley</a></li>
+						<li><a href="#p">Oats</a></li>
+						<li><a href="#p">Rye</a></li>
+						<li><a href="#p">Millet</a></li>
+						
+					</ul>
+				</div>
+			</li>
+
+			<li><a href="#o"><img src="" class="icon">Blogs</a></li>
+			<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="alert-container">
+				<!-- {% for message in messages %}
+						<script>
+							document.addEventListener('DOMContentLoaded', function () {
+								const swalInstance = Swal.fire({
+									icon: 'info',
+									title: 'Message',
+									html: '{{ message }}',
+									showCancelButton: false,
+									confirmButtonText: 'OK',
+									customClass: 'alert-wrapper-{{ forloop.counter }}', // Unique class for each message
+									onClose: function () {
+										document.querySelector('.alert-wrapper-{{ forloop.counter }}').remove(); // Remove the message element after closing the SweetAlert
+										swalInstance.close(); // Close the SweetAlert instance
+										document.body.classList.remove('swal2-shown'); // Remove SweetAlert modal overlay
+									},
+									allowOutsideClick: false // Prevent interaction with elements outside the pop-up
+								});
+								document.body.style.overflow = 'hidden';
+							});
+						</script>
+					{% endfor %} -->
+					{% for message in messages %}
+						<script>
+							Swal.fire({
+								title: 'Message',
+								html: '<strong>Message:</strong> {{ message }}',
+								icon: 'info',
+								confirmButtonText: 'Close'
+							});
+						</script>
+					{% endfor %}
+
+
+
+
+
+			</div>
+			<script>
+				$(document).ready(function(){
+		var apiKey = '63a90ae96d390ec37d6c1252f5a86e1a';
+		var city = 'New Panvel'; // Replace with your desired city
+	
+		var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey;
+	
+		$.getJSON(apiUrl, function(data){
+			var weatherDescription = data.weather[0].description;
+			var temperatureKelvin = data.main.temp;
+			var temperatureCelsius = temperatureKelvin - 273.15;
+			var humidity = data.main.humidity;
+	
+			var weatherHtml = '<h1>' + weatherDescription + '</h1>';
+			weatherHtml += '<h2>' + temperatureCelsius.toFixed(2) + '°C</h2>';
+			weatherHtml += '<h3>' + humidity + '%</h3>';
+	
+			$('#weather').html(weatherHtml);
+	
+			// Check if humidity is above 45% after 10 seconds
+			setTimeout(function() {
+				if (humidity > 45) {
+					// Show alert
+					swal("High Humidity Alert!", "The humidity is above 45%.", "warning");
+				}
+			}, 5000); // Delay of 10 seconds (10000 milliseconds)
+		});
+	
+		function updateDateTime() {
+			var now = new Date();
+			var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+			var day = days[now.getDay()];
+			var date = now.getDate();
+			var month = now.getMonth() + 1; // Months are zero based
+			var year = now.getFullYear();
+			var hours = now.getHours();
+			var minutes = now.getMinutes();
+			var seconds = now.getSeconds();
+	
+			minutes = minutes < 10 ? '0' + minutes : minutes;
+			seconds = seconds < 10 ? '0' + seconds : seconds;
+	
+			var dateTimeHtml = day + ', ' + date + '/' + month + '/' + year + ' ' +','+ hours + ':' + minutes + ':' + seconds;
+			$('#datetime').html(dateTimeHtml);
+		}
+	
+		updateDateTime();
+	
+		setInterval(updateDateTime, 1000);
+	});
+	
+			  </script>
+            
+			{% if user.is_authenticated %}
+			<script>
+				// Display SweetAlert for successful sign-in
+				document.addEventListener('DOMContentLoaded', function () {
+					Swal.fire({
+						icon: 'success',
+						title: 'Success!',
+						html: 'Hello {{ fname }}! You\'re successfully logged in.',
+						showCancelButton: false,
+						confirmButtonText: 'OK',
+					});
+				});
+			</script>
+    	    <li><a class="cta" href="/signout"><button class="login">Sign Out</button></a></li>
+		{% else %}
+			<!-- <script>
+				// Display SweetAlert for non-authenticated users
+				document.addEventListener('DOMContentLoaded', function () {
+					Swal.fire({
+						icon: 'warning',
+						title: 'Not Authenticated!',
+						text: 'Please sign in to access our grain community.',
+						showCancelButton: false,
+						confirmButtonText: 'OK',
+					});
+				});
+			</script> -->
+
+
+			<li>
+				<a class="cta" href="{% url 'signin' %}">
+				  <button class="login">Login</button>
+				</a>
+			  </li>
+			  <li>
+				<a class="cta" href="{% url 'signup' %}">
+				  <button class="login">Sign Up</button>
+				</a>
+			  </li>
+			  
+            {% endif %}
+        </ul>
+		<div class="search">
+			<input type="text" placeholder="Search" class="srch"><button>Find</button>
+		</div>
+	</div>
+	<br><br><br>
+	
+	<div class="title">
+		<h4 style="color:black	 ;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">SmartGrain Surveillance</h4>
+		<h6 style="color: black;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Welcome to Our Grain Community</h6>
+	</div>
+	
+		<div id="weather-container">
+		  <img id="weather-icon" src="https://cdn-icons-png.flaticon.com/128/1146/1146869.png" alt="Weather Icon">
+		  <div id="weather"></div>
+		  <div id="datetime"></div>
+		  <button id="my">Weather</button>
+    
+		</div><br>
+	 
+	  
+	{% comment %} {% if user.is_authenticated %} {% endcomment %}
+	<!--Card Hover Effects-->
+	<div class="container">
+		<div class="card">
+			<div class="face face1">
+				<div class="content">
+					<img src="https://cdn-icons-png.flaticon.com/128/8239/8239763.png">
+					<h3 style="color: #000;">GRAIN MONITORING SYSTEM</h3>
+				</div>
+			</div>
+			<div class="face face2">
+				<div class="content">
+					<p>Display the current status of grain heaps, including temperature, humidity, moisture levels, and any other relevant metrics. </p>
+					<a href="/temp">Read More</a>
+				</div>
+			</div><br><br><br><br>
+			<div>
+				<h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;text-align: center;">Impurity Detection</h1>
+				{% comment %} <img style="width: 300px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLNW-Xgh9qXa1mlOwhMzFyYBz273yF8-QU0gblcl5t_HOwbbwcQQIqEGabVAYLglUHDcY&usqp=CAU">	 {% endcomment %}
+			</div>
+			<Button style="margin-left: 120px;color: #000;" id="myButton" onclick="window.location.href='{% url 'flask_url' %}';">
+				CHECK
+			</Button>
+			
+		
+		</div>
+	
+		 
+		<div class="card">
+			<div class="face face1">
+				<div class="content">
+					<img src="https://cdn-icons-png.flaticon.com/128/9205/9205958.png">
+					<h3 style="color: #000;">HEAP VISUALISATION </h3>
+				</div>
+			</div>
+			<div class="face face2">
+				<div class="content">
+					<p> Provide visual representations of grain heaps, showing their size, shape, and distribution within the warehouse. </p>
+					<a href="/heap">Read More</a>
+				</div>
+			</div><br><br><br><br>
+			<div>
+				<h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;text-align: center;">Pests Detection</h2>
+				{% comment %} <img style="width: 300px;" src="https://media.istockphoto.com/id/593309104/photo/paddy-rice-seed-on-white-background.jpg?s=170667a&w=0&k=20&c=ry5w2CsbM4VPN30HTfHPyZ-4gY-um9gMLn27SJFhqtk=">	 {% endcomment %}
+			</div>
+			<Button style="margin-left: 120px;color: #000;" id="myButton" onclick="window.location.href='{% url 'flask_url' %}';">
+				CHECK
+			</Button>
+		</div>
+
+		<div class="card">
+			<div class="face face1">
+				<div class="content">
+					<img  src="https://cdn-icons-png.flaticon.com/128/9162/9162887.png">
+					<h3 style="color: #000;">TRADE SYSTEM</h3>
+				</div>
+			</div>
+			<div class="face face2">
+				<div class="content">
+					<p >The grain trade system operates efficiently, facilitating global grain transactions through streamlined processes and clear regulations. </p>
+					<a href="/trade">Read More</a>
+				</div>
+			</div><br><br><br><br>
+			<div>
+				<h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;text-align: center;">Ragi Detection</h1>
+				{% comment %} <img style="width: 300px;" src="https://www.pngitem.com/pimgs/m/481-4819480_barley-png-image-grain-barley-png-transparent-png.png">	 {% endcomment %}
+			</div>
+			<Button style="margin-left: 120px;color: #000;" id="myButton" onclick="window.location.href='{% url 'flask_url' %}';">
+				CHECK
+			</Button>		
+		</div>
+	</div>
+	{% comment %} {% endif %} {% endcomment %}
+	<br><br><br>
+	<div id="o"></div>
+	<div class="title">
+		<span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Harvesting the World of Grains</span>
+	</div>
+	<br><br><br>
+	
+	<!-- Slider -->
+	
+	
+	<section>
+		<div class="slide"><a href="{% url 'wheat' %}" class="content">Wheat</a></div>
+		<div class="slide"><a href="{% url 'paddy' %}" class="content">Paddy</a></div>
+		<div class="slide"><a href="{% url 'barley' %}" class="content">Barley</a></div>
+		<div class="slide"><a href="{% url 'maize' %}" class="content">Maize</a></div>
+		<div class="slide"><a href="{% url 'millet' %}" class="content">Millet</a></div>
+		<div class="slide"><a href="{% url 'sorghum' %}" class="content">Sorghum</a></div>
+	</section>
+	
+	<br><br><br><br>
+	<div class="para" id="p">
+		<p>As a company, "SmartGrain Surveillance" could be an organization that specializes in providing products, services, or solutions related to grain handling, storage, or transportation. This company may offer a range of equipment, technology, or expertise aimed at optimizing the efficiency, safety, and quality of operations within the grain industry.</p>
+	</div>
+
+	<div class="title">
+		<span>Products</span>
+	</div>
+
+	<div class="thecontainer">
+		<div class="box">
+			<div class="imgBox">
+				<img src="https://images.unsplash.com/photo-1565892971834-91750da627d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzczODV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTE1OTE1MTF8&ixlib=rb-4.0.3&q=80&w=1080">
+			</div>
+			<div class="content">
+				<h2>WHEAT</h2>
+			</div>
+		</div>
+		<div class="box">
+			<div class="imgBox">
+				<img src="https://cdn.pixabay.com/photo/2023/12/08/00/09/corn-8436530_640.jpg">
+			</div>
+			<div class="content">
+				<h2>MAIZE</h2>
+			</div>
+		</div>
+		<div class="box">
+			<div class="imgBox">
+				<img src="https://cdn.pixabay.com/photo/2020/09/18/15/32/crop-5582141_640.jpg">
+			</div>
+			<div class="content">
+				<h2>PADDY</h2>
+			</div>
+		</div>
+		<div class="box">
+			<div class="imgBox">
+				<img src="https://cdn.pixabay.com/photo/2013/11/01/18/13/pearl-millet-204092_640.jpg">
+			</div>
+			<div class="content">
+				<h2>MILLET</h2>
+			</div>
+		</div>
+		<div class="box">
+			<div class="imgBox">
+				<img src="https://cdn.pixabay.com/photo/2015/02/18/16/10/wheat-640960_640.jpg">
+			</div>
+			<div class="content">
+				<h2>BARLEY</h2>
+			</div>
+		</div>
+		<div class="box">
+			<div class="imgBox">
+				<img src="https://cdn.pixabay.com/photo/2016/08/04/07/24/grain-1568509_640.jpg">
+			</div>
+			<div class="content">
+				<h2>SORGHUM</h2>
+			</div>
+		</div>
+		
+	</div>
+
+	<!-- Products -->
+	{% comment %} <div class="title">
+		<span>OUR TEAM</span>
+	</div>
+	<div class="product-card">
+		<div class="card"><img src="https://img.freepik.com/premium-vector/letter-circle-logo-design-mk_713501-428.jpg?size=626&ext=jpg&ga=GA1.1.120056016.1707296543&semt=sph"></div>
+		<div class="card"><img src="https://img.freepik.com/free-photo/colorful-letter-s-is-displayed-against-brown-wall_1340-36062.jpg?size=626&ext=jpg&ga=GA1.1.120056016.1707296543&semt=sph"></div>
+		<div class="card"><img src="https://img.freepik.com/free-vector/gradient-n-logo-template_23-2149372724.jpg?size=626&ext=jpg&ga=GA1.1.120056016.1707296543&semt=sph"></div>
+		<div class="card"><img src="https://img.freepik.com/premium-vector/vk-letter-logo-initial-vk-letter-business-logo-design-vector-template_754537-888.jpg?size=626&ext=jpg&ga=GA1.1.120056016.1707296543&semt=sph"></div>
+	</div> {% endcomment %}
+
+	<footer>
+		<div class="footer-container">
+			<div class="left-col">
+				<div class="logo"><h1>SmartGrain Surveillance</h1></div>
+				<div class="social-media">
+					<a href="#"><img src="https://cdn-icons-png.flaticon.com/128/174/174848.png"></a>
+					<a href="#"><img src="https://cdn-icons-png.flaticon.com/128/174/174883.png"></a>
+					<a href="#"><img src="https://cdn-icons-png.flaticon.com/128/11823/11823292.png"></a>
+					<a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png"></a>
+					<a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3536/3536505.png"></a>
+				</div><br><br>
+				<p class="rights-text">© 2024 GrainGuard Technologies. Protecting Your Grain with Precision.</p>
+				<p><b>Contact: </b>+91-0000-111-000<br><b>E-mail: </b>SmartGrain_Surveillance@gmail.com</p>
+			</div>
+			<div class="right-col">
+				<h1>Our Newsletter</h1>
+				<div class="border"></div>
+				<p>Enter Your Email to get our News and updates.</p>
+				<form class="newsletter-form">
+					<input class="txtb" type="text" placeholder="Enter Your Email">
+					<input class="btn" type="submit" value="Submit">
+				</form>
+			</div>
+		</div>
+	</footer>
+	<!--<script>
+		document.getElementById('myButtonr').addEventListener('click', function() {
+			Swal.fire({
+			icon: 'error',
+			title: 'The silo\'s door is now open',
+			text: 'There may be rodents inside the silo . I will take actions.',});
+		});
+		document.getElementById('myButton1').addEventListener('click', function() {
+			Swal.fire({
+			icon: 'success',
+			title: 'The silo\'s door is now closed.  ',
+			text: 'The grains are in a safe state!!!',});
+		});
+		document.getElementById('myButton2').addEventListener('click', function() {
+			Swal.fire({
+			icon: 'success',
+			title: 'The silo\'s door is now closed.  ',
+			text: 'The grains are in a safe state!!!',});
+		});
+	
+	</script> -->
+	<script>
+		let mins = 1.0;
+		let secs = mins * 60;
+		let countdownInterval;
+		let activeButtonId;
+	
+		function startTimer() {
+			countdownInterval = setInterval(updateTimer, 1000);
+		}
+	
+		function stopTimer() {
+			clearInterval(countdownInterval);
+		}
+	
+		function updateTimer() {
+			if (secs <= 0) {
+				stopTimer();
+				// Display different final alert messages based on the active button
+				switch (activeButtonId) {
+					case 'button1':
+					Swal.fire({
+							icon: 'error',
+							title: 'The silo\'s door is now open',
+							text: 'There may be rodents inside the silo . Urgent action is required.',});
+						break;
+					case 'button2':
+					Swal.fire({
+								icon: 'success',
+								title: 'The silo\'s door is now closed.  ',
+								text: 'The grains are in a safe state!!!',});
+						break;
+					case 'button3':
+					Swal.fire({
+								icon: 'success',
+								title: 'The silo\'s door is now closed.  ',
+								text: 'The grains are in a safe state!!!',});
+						break;
+					default:
+						break;
+				}
+				return;
+			}
+			Swal.update({
+				title: 'Silo\'s Door Status',
+				text: `Time remaining: ${getFormattedTime()}`,
+			});
+			secs--;
+		}
+	
+		function startCountdown(buttonId) {
+			mins = 1.0;
+			secs = mins * 60;
+			activeButtonId = buttonId;
+			startTimer();
+			Swal.fire({
+				icon: 'info',
+				title: 'Silo\'s Door Status',
+				text: `Time remaining: ${getFormattedTime()}`,
+				showConfirmButton: false,
+				didClose: () => {
+					stopTimer();
+				}
+			});
+		}
+	
+		function getFormattedTime() {
+			let minutes = Math.floor(secs / 60);
+			let seconds = secs % 60;
+			return `${minutes} minutes ${seconds} seconds`;
+		}
+	</script>
+</body>
+</html>

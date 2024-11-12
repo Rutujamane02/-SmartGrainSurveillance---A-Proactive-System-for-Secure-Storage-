@@ -1,0 +1,28 @@
+smart grain :  1) python -m venv myenv
+              2) myenv\Scripts\activate
+              3) pip install django
+              4)cd path_to_your_project_directory
+              5) python manage.py migrate
+              6) python manage.py runserver
+
+app : 1)$env:ROBOFLOW_API_KEY="MGrOrCKRORqEnIU4YnO5"
+       2)echo $env:ROBOFLOW_API_KEY
+       3)python app.py
+
+app2 : 1)$env:ROBOFLOW_API_KEY="MGrOrCKRORqEnIU4YnO5"
+       2)echo $env:ROBOFLOW_API_KEY
+       3)python app2.py
+
+app3 :
+1)$env:ROBOFLOW_API_KEY="aABEiyf1iKaNMSlJFvIu"
+       2)echo $env:ROBOFLOW_API_KEY
+       3)python app3.py
+
+
+https://cdn-icons-png.flaticon.com/128/1946/1946488.png
+https://cdn-icons-png.flaticon.com/128/2652/2652218.png
+https://cdn-icons-png.flaticon.com/128/1170/1170678.png"
+
+ByteAlchemy_SmartGrain_Surveillance 
+
+

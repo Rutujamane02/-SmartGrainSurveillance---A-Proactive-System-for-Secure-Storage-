@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px; /* Adjust max-width as needed */
+            margin: 0 auto;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+        .data-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px; /* Add space between title and data */
+        }
+        .data {
+            text-align: center;
+            font-size: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            flex: 1;
+        }
+        #temperatureData {
+            margin-right: 5px; /* Add margin to separate temperature from humidity */
+        }
+        #humidityData {
+            margin-left: 5px; /* Add margin to separate humidity from temperature */
+        }
+        .left-container, .right-container {
+            width: 45%;
+            padding: 20px;
+            margin: 60px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            float: left;
+        }
+        .left-container {
+            background-color: #f2f2f2;
+        }
+        .right-container {
+            background-color: #e0e0e0;
+        }
+        #temperatureChart, #humidityChart {
+            width: 100%;
+            height: auto;
+        }
+        .cta {
+    position: relative;
+  }
+
+  .login {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #4cacaf; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  /* Hover effect */
+  .login:hover {
+    background-color: #45a098; /* Darker green */
+  }
+    </style>
+</head>
+<body>
+   
+<div class="container">
+    <h1>Grain Warehouse  Weather</h1>
+    
+    <div class="data-container">
+        <div class="data" id="temperatureData">
+            Temperature: Loading...
+        </div>
+        <div class="data" id="humidityData">
+            Humidity: Loading...
+        </div>
+    </div>
+</div>
+<a class="cta" href="{% url 'home' %}"><button class="login">Home</button></a>
+
+<div class="container left-container">
+    <h2>Temperature Graph </h2>
+    <canvas id="temperatureChart"></canvas>
+</div>
+
+<div class="container right-container">
+    <h2>Humidity Graph </h2>
+    <canvas id="humidityChart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script>
+        const timeLabels = [
+            "00:00", "00:10", "00:20", "00:30", "00:40", "00:50", "01:00", "01:10",
+            "01:20", "01:30", "01:40", "01:50", "02:00", "02:10", "02:20", "02:30",
+            "02:40", "02:50", "03:00", "03:10", "03:20", "03:30", "03:40", "03:50","04:00"
+        ];
+
+        const ctxHumidity = document.getElementById('humidityChart').getContext('2d');
+        const humidityChart = new Chart(ctxHumidity, {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: 'Humidity (%)',
+                    data: [],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100  // Adjust this value for a wider y-axis range if needed
+                        }
+                    }]
+                }
+            }
+        });
+
+        const ctxTemperature = document.getElementById('temperatureChart').getContext('2d');
+        const temperatureChart = new Chart(ctxTemperature, {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false,
+                            min: 36,
+                            max: 39
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Function to generate random temperature and humidity data
+        function generateData() {
+            const temperature = parseFloat((Math.random() * 0.002 + 37).toFixed(4)); // Temperature between 37.0000 to 38.0000
+            const humidity = parseFloat((Math.random() * 0.002 + 67).toFixed(4)); // Humidity between 67.0000 to 68.0000
+            return { temperature, humidity };
+        }
+
+        // Function to display data on the webpage
+        function displayData(temperature, humidity) {
+            const temperatureContainer = document.getElementById('temperatureData');
+            temperatureContainer.textContent = `Temperature: ${temperature}°C`;
+
+            const humidityContainer = document.getElementById('humidityData');
+            humidityContainer.textContent = `Humidity: ${humidity}%`;
+        }
+
+        // Update data every 10 seconds
+        setInterval(function() {
+            const { temperature, humidity } = generateData();
+            displayData(temperature, humidity);
+            updateCharts(temperature, humidity);
+        }, 10000); // 10 seconds in milliseconds
+
+        // Function to update charts with new data
+        function updateCharts(temperature, humidity) {
+            humidityChart.data.datasets[0].data.push(humidity);
+            temperatureChart.data.datasets[0].data.push(temperature);
+            humidityChart.update();
+            temperatureChart.update();
+        }
+    </script>
+</div>
+</body>
+</html>

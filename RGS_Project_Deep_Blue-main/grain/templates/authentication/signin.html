@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Include SweetAlert -->
+</head>
+<style>
+    /* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  min-height: 100vh;
+  width: 100%;
+  background: #FFE4C4;
+}
+.container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 430px;
+  width: 100%;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+#check:checked ~ .login{
+  display: none;
+}
+#check{
+  display: none;
+}
+.container .form{
+  padding: 2rem;
+}
+.form header{
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+ .form input{
+   height: 40px;
+   width: 100%;
+   padding: 0 15px;
+   font-size: 17px;
+   margin-bottom: 1.3rem;
+   border: 1px solid #ddd;
+   border-radius: 6px;
+   outline: none;
+ }
+ .form input:focus{
+   box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+ }
+.form a{
+  font-size: 16px;
+  color: #66b4db;
+  text-decoration: none;
+}
+.form a:hover{
+  text-decoration: underline;
+  color: #66b4db;
+}
+.form input.button{
+  color: #fff;
+  background: #66b4db;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.form input.button:hover{
+  background: #1d5c7c;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    background-color: #66b4db; /* Red */
+    color: white;
+    cursor: pointer;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.button:hover {
+    background-color: #1d5c7c; /* Darker red on hover */
+}
+.signup{
+  font-size: 17px;
+  text-align: center;
+}
+.signup label{
+  color: #66b4db;
+  cursor: pointer;
+}
+.signup label:hover{
+  text-decoration: underline;
+  color: #1d5c7c;
+}
+</style>
+<body>
+  <div class="container">
+    <div class="form">
+      <header>Sign In</header>
+      <form method="post" action="/signin">
+        {% csrf_token %}
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" required>
+        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Your Password" required>
+        <center><button type="submit" class="button">Sign In</button></center>
+      </form><br>
+      <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+  </div>
+
+  <!-- JavaScript for SweetAlert -->
+  <script>
+    // Display SweetAlert for non-authenticated users
+    document.addEventListener('DOMContentLoaded', function () {
+      // Check if there are any error messages in the URL (e.g., after a failed login attempt)
+      const urlParams = new URLSearchParams(window.location.search);
+      const errorMessage = urlParams.get('error');
+      if (errorMessage) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: errorMessage,
+          showCancelButton: false,
+          confirmButtonText: 'OK',
+        });
+      }
+    });
+  </script>
+  
+</body>
+</html>
